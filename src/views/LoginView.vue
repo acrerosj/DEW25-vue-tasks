@@ -16,10 +16,31 @@
 </template>
 
 <script setup>
+import { useTaskStore } from '@/stores/taskStore';
 import { ref } from 'vue';
 
 const email = ref('');
 const password = ref('');
 
+const taskStore = useTaskStore();
+
+const handleLogin = async () => {
+    // Aquí puedes agregar la lógica de autenticación, como enviar los datos a un servidor
+
+    try {
+        const credentials = {
+            email: email.value,
+            password: password.value,
+        };
+        const auth = await taskStore.login(credentials);
+        if (auth) {
+            alert('Login successful!');
+        } else {
+            alert('Login failed. Please check your credentials.');
+        }
+    } catch (error) {
+        console.error('Login failed:', error);
+    }
+};
 
 </script>
